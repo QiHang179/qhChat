@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/icon.ico</file>
+        <file>image/thelema.png</file>
+        <file>image/ice.png</file>
+        <file>style/style.qss</file>
+    </qresource>
+</RCC>
