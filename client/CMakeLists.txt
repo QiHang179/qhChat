@@ -30,6 +30,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         global.cpp
         singleton.h
         httpmgr.h httpmgr.cpp
+        config.ini
     )
 else()
     if(ANDROID)
@@ -70,12 +71,30 @@ set_target_properties(chatProject PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
+# 拷贝配置文件的操作
+if(WIN32)
+    # 仅在Release配置下执行拷贝
+    set(SOURCE_FILE "${CMAKE_CURRENT_SOURCE_DIR}/config.ini")
+    set(DESTINATION_DIR "$<TARGET_FILE_DIR:chatProject>")
+
+    # 添加自定义命令，在目标构建后执行拷贝
+    add_custom_command(TARGET chatProject POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${SOURCE_FILE}"
+        "${DESTINATION_DIR}"
+        COMMENT "Copying config.ini to build directory"
+    )
+endif()
+
 include(GNUInstallDirs)
 install(TARGETS chatProject
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+
+# 安装时也拷贝配置文件
+install(FILES "config.ini" DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(chatProject)
