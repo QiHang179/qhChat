@@ -55,3 +55,6 @@ compile_commands.json
 
 /build/
 /client/build
+# Visual Studio (Windows IDE)
+.vs/
+out/
