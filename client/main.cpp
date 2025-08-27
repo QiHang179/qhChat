@@ -2,6 +2,8 @@
 #include <QApplication>
 #include <QFile>
 #include "global.h"
+#include <QDir>
+#include <QSettings>
 
 int main(int argc, char *argv[])
 {
