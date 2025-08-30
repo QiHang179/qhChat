@@ -45,6 +45,14 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         tcpmgr.h tcpmgr.cpp
+        usermgr.h usermgr.cpp
+        chatdialog.h chatdialog.cpp chatdialog.ui
+        clickedbtn.h clickedbtn.cpp
+        customizeedit.h customizeedit.cpp
+        chatuserlist.h chatuserlist.cpp
+        chatuserwid.h chatuserwid.cpp chatuserwid.ui
+        listitembase.h listitembase.cpp
+
     )
 else()
     if(ANDROID)

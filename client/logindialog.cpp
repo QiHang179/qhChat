@@ -236,7 +236,7 @@ void LoginDialog::slot_tcp_con_finish(bool bsuccess)
         QString jsonString = doc.toJson(QJsonDocument::Indented);
 
         //发送tcp请求给chat server
-        TcpMgr::GetInstance()->sig_send_data(ReqId::ID_CHAT_LOGIN, jsonString);
+        emit TcpMgr::GetInstance()->sig_send_data(ReqId::ID_CHAT_LOGIN, jsonString);
 
     }else{
         showTip(tr("网络异常"),false);
@@ -244,8 +244,10 @@ void LoginDialog::slot_tcp_con_finish(bool bsuccess)
     }
 }
 
-void LoginDialog::slot_login_failed(int)
+void LoginDialog::slot_login_failed(int err)
 {
-
+    QString result = QString("登录失败，err is %l").arg(err);
+    showTip(result,false);
+    enableBtn(true);
 }
 

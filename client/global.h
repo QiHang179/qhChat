@@ -63,4 +63,20 @@ struct ServerInfo{
     int Uid;
 };
 
+// 聊天界面几种模式
+enum ChatUIMode {
+    SearchMode, // 搜索模式
+    ChatMode,   // 聊天模式
+    ContactMode // 联系模式
+};
+
+//自定义QListWidgetItem的几种类型
+enum ListItemType{
+    ChatUserItem, //聊天用户
+    ContactUserItem, //联系人用户
+    SearchUserItem, //搜索到的用户
+    AddUserTipItem, //提示添加用户
+    InvalidItem,  //不可点击条目
+};
+
 #endif // GLOBAL_H
