@@ -54,6 +54,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         listitembase.h listitembase.cpp
         loadingdlg.h loadingdlg.cpp loadingdlg.ui
         chatpage.h chatpage.cpp chatpage.ui
+        chatitembase.h chatitembase.cpp
+        bubbleframe.h bubbleframe.cpp
+        textbubble.h textbubble.cpp
+        picturebubble.h picturebubble.cpp
+        messagetextedit.h messagetextedit.cpp
+        chatview.h chatview.cpp
 
     )
 else()
