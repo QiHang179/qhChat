@@ -60,6 +60,11 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         picturebubble.h picturebubble.cpp
         messagetextedit.h messagetextedit.cpp
         chatview.h chatview.cpp
+        statewidget.h statewidget.cpp
+        searchlist.h searchlist.cpp
+        userdata.h userdata.cpp
+        adduseritem.h adduseritem.cpp adduseritem.ui
+
 
     )
 else()
