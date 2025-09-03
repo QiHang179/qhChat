@@ -7,6 +7,8 @@
 #include "customizeedit.h"
 //#include "findfaildlg.h"
 #include "loadingdlg.h"
+#include "findsuccessdlg.h"
+#include "userdata.h"
 
 SearchList::SearchList(QWidget *parent):QListWidget(parent),_find_dlg(nullptr), _search_edit(nullptr), _send_pending(false)
 {
@@ -25,7 +27,10 @@ SearchList::SearchList(QWidget *parent):QListWidget(parent),_find_dlg(nullptr), 
 
 void SearchList::CloseFindDlg()
 {
-
+    if(_find_dlg){
+        _find_dlg->hide();
+        _find_dlg = nullptr;
+    }
 }
 
 void SearchList::SetSearchEdit(QWidget *edit)
@@ -88,7 +93,35 @@ void SearchList::addTipItem()
 
 void SearchList::slot_item_clicked(QListWidgetItem *item)
 {
+    QWidget *widget =this->itemWidget(item);//获取自定义Widget对象
+    if(!widget){
+        qDebug()<<"slot item clicked widget is nullptr";
+        return;
+    }
 
+    //对自定义widget进行操作，将item转化为基类ListItemBase
+    ListItemBase* customItem = qobject_cast<ListItemBase*>(widget);
+    if(!customItem){
+        qDebug()<<"slot item clicked widget is nullptr";
+        return;
+    }
+
+    auto itemType = customItem->GetItemType();
+    if (itemType == ListItemType::INVALID_ITEM) {
+        qDebug() << "slot invalid item clicked";
+        return;
+    }
+
+    if(itemType == ListItemType::ADD_USER_TIP_ITEM){
+        _find_dlg = std::make_shared<FindSuccessDlg>(this);
+        auto si = std::make_shared<SearchInfo>(0,"qh","qh","hello",0);
+        std::dynamic_pointer_cast<FindSuccessDlg>(_find_dlg)->SetSearchInfo(si);
+        _find_dlg->show();
+        return;
+    }
+
+    //清除弹出框
+    CloseFindDlg();
 }
 
 void SearchList::slot_user_search(std::shared_ptr<SearchInfo> si)

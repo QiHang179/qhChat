@@ -64,6 +64,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         searchlist.h searchlist.cpp
         userdata.h userdata.cpp
         adduseritem.h adduseritem.cpp adduseritem.ui
+        findsuccessdlg.h findsuccessdlg.cpp findsuccessdlg.ui
 
 
     )
@@ -86,6 +87,13 @@ target_include_directories(chatProject PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
+# 针对MSVC编译器添加特定编译选项（对应qmake的win32-msvc*:QMAKE_CXXFLAGS += /wd"4819" /utf-8）
+if(MSVC)
+    # 禁用警告4819（文件包含不能在当前代码页中表示的字符）
+    # 设置源文件编码为UTF-8
+    target_compile_options(chatProject PRIVATE /wd4819 /utf-8)
+endif()
+
 if(${QT_VERSION} VERSION_LESS 6.1.0)
     set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.chatProject)
 endif()
@@ -98,14 +106,52 @@ set_target_properties(chatProject PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-if(WIN32)
-    set(SOURCE_FILE "${CMAKE_CURRENT_SOURCE_DIR}/config.ini")
-    set(DESTINATION_DIR "$<TARGET_FILE_DIR:chatProject>")
+# 根据构建类型输出信息（类似qmake的message）
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    message(STATUS "debug mode")
+else()
+    message(STATUS "release mode")
+endif()
+
+# 拷贝config.ini文件到输出目录
+set(SOURCE_CONFIG "${CMAKE_CURRENT_SOURCE_DIR}/config.ini")
+set(DESTINATION_DIR "$<TARGET_FILE_DIR:chatProject>")
+add_custom_command(TARGET chatProject POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    "${SOURCE_CONFIG}"
+    "${DESTINATION_DIR}"
+    COMMENT "Copying config.ini to build directory"
+)
+
+# 拷贝image文件夹到输出目录（类似qmake的static文件夹拷贝）
+set(SOURCE_IMAGE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/image")
+set(DEST_IMAGE_DIR "$<TARGET_FILE_DIR:chatProject>/image")
+add_custom_command(TARGET chatProject POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    "${SOURCE_IMAGE_DIR}"
+    "${DEST_IMAGE_DIR}"
+    COMMENT "Copying image directory to build directory"
+)
+
+# 拷贝style文件夹到输出目录
+set(SOURCE_STYLE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/style")
+set(DEST_STYLE_DIR "$<TARGET_FILE_DIR:chatProject>/style")
+add_custom_command(TARGET chatProject POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    "${SOURCE_STYLE_DIR}"
+    "${DEST_STYLE_DIR}"
+    COMMENT "Copying style directory to build directory"
+)
+
+# 如果存在static文件夹，也进行拷贝（为了兼容原qmake项目）
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/static")
+    set(SOURCE_STATIC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/static")
+    set(DEST_STATIC_DIR "$<TARGET_FILE_DIR:chatProject>/static")
     add_custom_command(TARGET chatProject POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        "${SOURCE_FILE}"
-        "${DESTINATION_DIR}"
-        COMMENT "Copying config.ini to build directory"
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${SOURCE_STATIC_DIR}"
+        "${DEST_STATIC_DIR}"
+        COMMENT "Copying static directory to build directory"
     )
 endif()
 
