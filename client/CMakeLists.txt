@@ -68,6 +68,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         applyfriend.h applyfriend.cpp applyfriend.ui
         clickedoncelabel.h clickedoncelabel.cpp
         friendlabel.h friendlabel.cpp friendlabel.ui
+        contactuserlist.h contactuserlist.cpp
+        conuseritem.h conuseritem.cpp conuseritem.ui
+        grouptipitem.h grouptipitem.cpp grouptipitem.ui
 
 
     )
