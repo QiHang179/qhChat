@@ -122,22 +122,22 @@ const std::vector<QString>  strs ={"hello world !",
                                    "My love is written in the wind ever since the whole world is you"};
 
 const std::vector<QString> heads = {
-    ":/image/head_1.jpg",
-    ":/image/head_2.jpg",
-    ":/image/head_3.jpg",
-    ":/image/head_4.jpg",
-    ":/image/head_5.jpg"
+    ":/image/thelema.jpg",
+    ":/image/rita.jpg",
+    ":/image/leave.jpg",
+    ":/image/dragon.jpg",
+    ":/image/ruan.jpg"
 };
 
 const std::vector<QString> names = {
-    "HanMeiMei",
-    "Lily",
-    "Ben",
-    "Androw",
-    "Max",
-    "Summer",
-    "Candy",
-    "Hunter"
+    "ligo",
+    "lingo",
+    "尖尖",
+    "起航",
+    "双叶",
+    "建武",
+    "大爬",
+    "堡堡"
 };
 
 #endif // GLOBAL_H
