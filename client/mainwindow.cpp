@@ -51,8 +51,6 @@ void MainWindow::SlotSwitchLogin()
     connect(_login_dlg,&LoginDialog::switchRegister,this,&MainWindow::SlotSwitchReg);
     //连接登录界面忘记密码信号
     connect(_login_dlg,&LoginDialog::switchReset,this,&MainWindow::SlotSwitchReset);
-    //连接登录界面忘记密码信号
-    connect(_login_dlg,&LoginDialog::switchReset,this,&MainWindow::SlotSwitchReset);
 }
 
 void MainWindow::SlotSwitchLogin2()
