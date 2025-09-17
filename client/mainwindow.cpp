@@ -76,7 +76,7 @@ void MainWindow::SlotSwitchReset()
 
     _login_dlg->hide();
     _reset_dlg->show();
-    //注册返回登录的信号和槽函数、
+    //注册返回登录的信号和槽函数
     connect(_reset_dlg,&ResetDialog::switchLogin,this,&MainWindow::SlotSwitchLogin2);
 }
 
