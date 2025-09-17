@@ -6,6 +6,8 @@ HttpConnection::HttpConnection(boost::asio::io_context& ioc): _socket(ioc) {
 }
 
 void HttpConnection::Start(){
+	//在异步操作中，回调函数可能在对象被销毁后才执行，此时this指针会变成悬空指针
+	//而shared_from_this()会创建一个指向当前对象智能指针，只要这个智能指针存在对象就不会被销毁
 	auto self = shared_from_this();
 	http::async_read(_socket, _buffer, _request, [self](beast::error_code ec, std::size_t bytes_transferred) {
 		try {
