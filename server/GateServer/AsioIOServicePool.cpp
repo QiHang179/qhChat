@@ -10,6 +10,7 @@ _works(size), _nextIOService(0) {
 
 	//遍历多个ioservice，创建多个线程，每个线程内部启动ioservice
 	for (std::size_t i = 0; i < _ioServices.size(); ++i) {
+		//emplace_back完美转发机制
 		_threads.emplace_back([this, i]() {
 			_ioServices[i].run();
 			});

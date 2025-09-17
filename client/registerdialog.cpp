@@ -329,7 +329,7 @@ void RegisterDialog::on_sure_btn_clicked()
         return;
     }
 
-    //day11 发送http请求注册用户
+    //发送http请求注册用户
     QJsonObject json_obj;
     json_obj["user"] = ui->usr_edit->text();
     json_obj["email"] = ui->email_edit->text();
