@@ -15,7 +15,7 @@ void LogicSystem::RegPost(std::string url, HttpHandler handler) {
 
 LogicSystem::LogicSystem()
 {
-    //测试    
+    //测试
 	RegGet("/get_test", [](std::shared_ptr<HttpConnection> connection) {
 		beast::ostream(connection->_response.body()) << "receive get_test req";
 		int i = 0;

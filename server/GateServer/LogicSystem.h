@@ -2,7 +2,7 @@
 #include "const.h"
 
 class HttpConnection;
-typedef std::function<void(std::shared_ptr<HttpConnection>)>HttpHandler;
+typedef std::function<void(std::shared_ptr<HttpConnection>)> HttpHandler;
 
 class LogicSystem : public Singleton<LogicSystem> {
 	friend class Singleton<LogicSystem>;
