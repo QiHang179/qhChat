@@ -8,7 +8,6 @@
 #include "RedisMgr.h"
 #include "MysqlMgr.h"
 #include "AsioIOServicePool.h"
-#include <iostream>
 #include <memory>
 #include <string>
 #include <thread>

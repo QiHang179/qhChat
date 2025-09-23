@@ -39,6 +39,7 @@ public:
 		}
 		return _config_map[section];
 	}
+
 	static ConfigMgr& Inst() {
 		static ConfigMgr cfg_mgr;
 		return cfg_mgr;
