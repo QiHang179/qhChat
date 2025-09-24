@@ -40,6 +40,7 @@ public:
 
 	std::unique_ptr<StatusService::Stub> getConnection() {
 		std::unique_lock<std::mutex> lock(mutex_);
+		//这里的lambda充当谓词
 		cond_.wait(lock, [this] {
 			if (b_stop_) {
 				return true;
